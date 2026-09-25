@@ -1,0 +1,9 @@
+// Continuum Companion — build.gradle.kts template (placeholder)
+// Real Gradle config deferred; documents intended dependencies.
+//
+// plugins { id("com.android.application"); kotlin("android") }
+// dependencies {
+//   implementation("androidx.compose.ui:...")   // Jetpack Compose UI
+//   implementation("androidx.camera:camera-camera2:...")  // CameraX (Phase 4)
+//   implementation("io.grpc:...") // or chosen QUIC/protobuf transport lib
+// }

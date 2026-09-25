@@ -1,0 +1,6 @@
+# Continuum OS — Yocto bblayers.conf template
+BBLAYERS ?= " \
+  \${TOPDIR}/../layers/meta-continuum-kernel \
+  \${TOPDIR}/../layers/meta-continuum-base \
+  \${TOPDIR}/../layers/meta-continuum-image \
+  "

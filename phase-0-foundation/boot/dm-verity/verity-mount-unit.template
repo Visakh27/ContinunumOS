@@ -1,0 +1,20 @@
+# Continuum OS — dm-verity root mount unit (systemd-style template)
+# Placeholder; real unit generated at image-build time with the actual
+# root-hash signature baked in per device image.
+
+[Unit]
+Description=Continuum OS verified root mount
+DefaultDependencies=no
+Before=local-fs.target
+OnFailure=continuum-recovery-boot.target
+
+[Mount]
+What=/dev/mapper/continuum-verity-root
+Where=/
+Type=ext4
+Options=ro
+
+# Verification enforcement happens in the initramfs stage before this
+# unit runs; this unit's OnFailure= is the fallback if the already-verified
+# device-mapper node somehow fails to mount, not the primary verification
+# path. See README.md for the full chain-of-trust sequencing.

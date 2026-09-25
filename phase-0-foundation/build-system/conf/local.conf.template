@@ -1,0 +1,9 @@
+# Continuum OS — Yocto local.conf template
+# Copy to build/conf/local.conf and fill in MACHINE for your Tier-1 target.
+
+MACHINE ?= "continuum-reference-tier1"
+DISTRO ?= "continuum-os"
+PACKAGE_CLASSES ?= "package_rpm"
+# A/B partition layout consumed by ../boot/ab-update/ — see that README
+# for the partition-scheme rationale.
+IMAGE_FSTYPES = "wic wic.bmap"

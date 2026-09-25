@@ -1,0 +1,16 @@
+# Continuum OS — kernel patch gate (skeleton)
+name: kernel-patch-gate
+on:
+  pull_request:
+    paths: ["phase-0-foundation/kernel/patches/**"]
+jobs:
+  hil-boot-test:
+    description: >
+      Build the kernel with the patch series applied, flash to at least
+      one Tier-1 reference device via the HIL lab, confirm boot reaches
+      the console checkpoint. Blocking.
+    steps:
+      - checkout
+      - build-kernel-with-patch-series
+      - hil-flash-and-boot: { device: "tier1-reference-primary" }
+      - assert-boot-health-checkpoint-reached

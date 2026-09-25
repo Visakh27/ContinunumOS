@@ -1,0 +1,13 @@
+# Phase 0 minimal image — package/component manifest
+# Exit-criteria image per phase-0-foundation/README.md: boots to text
+# console with verified boot + OTA update working. Nothing more.
+
+kernel: continuum-kernel (LTS + Phase 0 patch series)
+init: systemd (provisional per ADR 0002) — minimal target, no GUI
+filesystem: ext4 read-only root (ADR 0003)
+boot-chain: continuum-secure-boot, continuum-dm-verity-tools
+update-client: continuum-ab-updated
+recovery: continuum-recovery-env (see cross-cutting/recovery-mode/)
+diagnostics: continuum-telemetry-agent (minimal: boot success/failure beacon only,
+             per cross-cutting/telemetry-privacy/ — full telemetry schema is a later addition)
+console: getty on serial + local tty, no display server

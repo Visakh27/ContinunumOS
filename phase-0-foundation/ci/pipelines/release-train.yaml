@@ -1,0 +1,20 @@
+# Continuum OS — release-train gate (skeleton)
+name: release-train
+on: { workflow_dispatch: {} }
+jobs:
+  update-path-testing:
+    description: Simulate power loss and corrupted updates mid-flash; validate A/B rollback.
+    steps:
+      - checkout
+      - build-release-image
+      - simulate-power-loss-during-flash
+      - simulate-corrupted-manifest
+      - assert-rollback-recovers: { expected_rate: "100%" }
+  security-gate:
+    description: Pen test + sandbox-escape + protocol fuzzing, required for major releases.
+    needs: [update-path-testing]
+    steps:
+      - trigger-external-pentest-engagement
+      - run-sandbox-escape-suite
+      - run-protocol-fuzzers: { duration_hours: 24 }
+      - assert-zero-outstanding-critical-findings

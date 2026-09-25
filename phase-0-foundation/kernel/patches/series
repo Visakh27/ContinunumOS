@@ -1,0 +1,5 @@
+# quilt-style patch series file — ordered list of patches applied on top
+# of the pinned LTS baseline. Empty until Hardware Enablement team lands
+# the first Tier-1-device-specific patch (Session 2+ follow-up).
+#
+# Format: 0001-short-description.patch

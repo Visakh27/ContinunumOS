@@ -1,0 +1,17 @@
+# Continuum OS — nightly HIL regression (skeleton)
+name: nightly-hil-regression
+on:
+  schedule: { cron: "0 2 * * *" }
+jobs:
+  fleet-regression:
+    description: >
+      Boot + driver + continuity regression across the full Tier-1
+      certified device list plus a rotating Tier-2 sample. Non-blocking
+      for individual merges; failures page on-call and block the next
+      release train per ../README.md gate table.
+    steps:
+      - checkout
+      - hil-flash-fleet: { tier: "1", devices: "all" }
+      - hil-flash-fleet: { tier: "2", devices: "rotating-sample" }
+      - run-phase-tests: { level: hil }
+      - report-to: telemetry-dashboard  # cross-cutting/telemetry-privacy/

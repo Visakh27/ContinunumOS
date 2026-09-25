@@ -1,0 +1,9 @@
+# Continuum OS — graphics kernel config fragment
+# Supports the Phase 1 ContinuumWM compositor (docs/architecture/08-technology-stack.md)
+
+CONFIG_DRM=y
+CONFIG_DRM_KMS_HELPER=y
+CONFIG_DRM_FBDEV_EMULATION=y
+CONFIG_FB=y
+# Vendor GPU drivers (i915/amdgpu/nouveau/nvidia-proprietary) enabled
+# per Tier-1 reference device in a device-specific overlay, not here.

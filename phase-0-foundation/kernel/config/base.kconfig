@@ -1,0 +1,16 @@
+# Continuum OS — base kernel config fragment
+# Placeholder: merged into the full defconfig by the build system
+# (phase-0-foundation/build-system/). Populate once LTS baseline is pinned.
+
+CONFIG_LOCALVERSION="-continuum"
+CONFIG_BLK_DEV_INITRD=y
+CONFIG_EXT4_FS=y
+CONFIG_TMPFS=y
+CONFIG_NET=y
+CONFIG_INET=y
+CONFIG_UNIX=y
+CONFIG_DEVTMPFS=y
+CONFIG_DEVTMPFS_MOUNT=y
+CONFIG_PRINTK=y
+CONFIG_VT=y
+CONFIG_VT_CONSOLE=y

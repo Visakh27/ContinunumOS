@@ -1,0 +1,22 @@
+# Continuum OS — unit test pipeline (tool-agnostic skeleton)
+# Concrete CI system TBD (Session 6 follow-up). Structure below is the
+# intended shape regardless of final tool.
+name: unit-tests
+on: [pull_request]
+jobs:
+  rust-unit:
+    steps:
+      - checkout
+      - setup-rust: { toolchain: "stable (pinned, see build-system/README.md)" }
+      - run: cargo nextest run --workspace
+  kotlin-unit:
+    working_directory: android-companion/
+    steps:
+      - checkout
+      - setup-jdk
+      - run: ./gradlew test
+  shell-script-tests:
+    steps:
+      - checkout
+      - setup-bats
+      - run: bats phase-0-foundation/**/*.bats
