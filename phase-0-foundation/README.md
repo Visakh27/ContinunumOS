@@ -38,6 +38,16 @@ None of these are marked complete yet — this phase is scaffolded
 (structure, docs, skeletons) but not implemented/run, per current
 project scope (running and debugging deferred).
 
+## Exit review (Session 11)
+
+Reviewed against the checklist above — see
+`../docs/issues/phase-0-open-items.md` for the full open-items log this
+review produced, and `TIER1_REFERENCE_HARDWARE.md` for the reference
+hardware decision that unblocks the most downstream work. Two items
+(Tier-1 device selection, CI system selection) are flagged as
+decisions for you rather than engineering tasks a session can close on
+its own.
+
 ## Structure
 
 ```

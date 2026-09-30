@@ -37,10 +37,15 @@ things every shipping desktop shell needs day one:
   mirroring notifications, but the *native* OS notification model (how
   Continuum-native apps post notifications, do-not-disturb, notification
   history) is not specified independent of the Android-mirroring case.
-  Added as a Phase 1 shell-skeleton deliverable.
+  Designed in `../../phase-1-shell-compositor/shell-skeleton/notification-center/`
+  (Session 16), with a `Mirrored` source variant already modeled so
+  Phase 4's `continuum-phoned` only adds a producer, not a new center.
 - **Audio output/input switching UI** (a menu-bar equivalent of macOS's
   volume/output picker) is required for `continuum-phoned` call-audio
-  routing to be usable, and isn't mentioned. See
-  `../../cross-cutting/audio-stack/README.md`.
+  routing to be usable, and isn't mentioned. Designed in
+  `../../cross-cutting/audio-stack/README.md`, hooked into
+  `../../phase-1-shell-compositor/shell-skeleton/menubar/` (Session 16)
+  via the same mock/real data-source pattern already used for Continuum
+  Center.
 
 Implementation skeleton: `../../phase-1-shell-compositor/shell-skeleton/`.

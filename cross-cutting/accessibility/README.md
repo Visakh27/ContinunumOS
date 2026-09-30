@@ -15,6 +15,9 @@ not a shell-only bolt-on) and formally gated at Phase 6
   and exposed to apps via ContinuumKit.
 
 ## Status
-Design scope only at this stage — implementation begins with the Phase 1
-ContinuumKit accessibility-tree API, tracked in
-`../../phase-1-shell-compositor/app-runtime/README.md`.
+Interface sketch now exists at the intended hook-in point:
+`../../phase-1-shell-compositor/app-runtime/src/accessibility-tree/`
+(the `Accessible` trait, implemented automatically by standard
+ContinuumKit widgets). No implementation yet — this session established
+where the API lives and its shape; the screen reader, switch control,
+and captioning consumers of this tree are not yet designed.

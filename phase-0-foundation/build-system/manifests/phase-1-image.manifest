@@ -1,0 +1,21 @@
+# Phase 1 image manifest — superset of phase-0-minimal-image.manifest
+# per the "superset, never a rewrite" principle
+# (../../phase-0-foundation/build-system/README.md).
+
+# --- everything from phase-0-minimal-image.manifest, unchanged ---
+kernel: continuum-kernel (LTS + Phase 0 patch series)
+init: systemd (provisional per ADR 0002) — minimal target, no GUI
+filesystem: ext4 read-only root (ADR 0003)
+boot-chain: continuum-secure-boot, continuum-dm-verity-tools
+update-client: continuum-ab-updated
+recovery: continuum-recovery-env
+diagnostics: continuum-telemetry-agent (boot success/failure beacon)
+
+# --- Phase 1 additions ---
+compositor: continuumwm (wlroots-based, ADR 0005)
+shell: continuumshell (menubar, dock, window-manager, virtual-desktops, notification-center)
+app-runtime: continuumkit-sandbox, continuumkit-capability-broker
+audio: pipewire (Session 16 — output/input switching, call-audio routing priority scaffold)
+print: cups (Session 18 — IPP Everywhere path)
+localization: continuumkit-ime-framework (interface only, no engine yet — P1-4), rtl-layout-support
+console: getty retained as fallback target if compositor fails to start

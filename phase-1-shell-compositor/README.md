@@ -34,6 +34,16 @@ boot + A/B update working on a bootable minimal image.
 - [ ] `tests/` suite (unit + integration + HIL) passing per
       `../docs/testing/phase-1-test-plan.md`.
 
+## Exit review (Session 21)
+
+Reviewed against the checklist above — see
+`../docs/issues/phase-1-open-items.md` for the full open-items log. Two
+items (wlroots build integration, CI vendor selection) restate Phase 0
+blockers rather than introducing new ones — resolving those two
+decisions unblocks both phases' test suites at once. Two more (IME
+engine selection, screen reader) are consciously deferred substantial
+scopes of their own, not oversights.
+
 ## Structure
 ```
 phase-1-shell-compositor/

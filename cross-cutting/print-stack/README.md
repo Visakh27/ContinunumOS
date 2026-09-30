@@ -1,16 +1,37 @@
 # Print Stack
 
-Table-stakes desktop OS feature, absent from the source plan
-(`../../docs/architecture/09-additions-and-gaps.md`).
+CUPS-based printing (IPP Everywhere / driverless printing as the primary
+path — matches the "certified hardware, best-effort beyond that"
+philosophy already used for Tier-1/Tier-2 device support,
+`../../docs/architecture/03-driver-hardware-strategy.md`).
 
-## Scope (initial)
-- CUPS-based printing (IPP Everywhere / driverless printing as the
-  primary path, matching the "certified hardware, best-effort beyond
-  that" philosophy already used for Tier-1/Tier-2 device support).
-- Print dialog integrated into ContinuumKit as a standard system sheet,
-  not a per-app reimplementation.
+## Print dialog as a ContinuumKit system sheet
+Not a per-app reimplementation — one print dialog component in
+ContinuumKit, invoked via a standard API call, same integration pattern
+as the accessibility-tree and IME work (`../accessibility/`,
+`../localization/`): a system-level service every app gets by using
+ContinuumKit rather than building its own.
+
+```rust
+pub trait PrintService {
+    fn available_printers(&self) -> Vec<PrinterDescriptor>;
+    fn print(&self, document: PrintDocument, printer: PrinterId, options: PrintOptions) -> PrintJobHandle;
+    fn job_status(&self, handle: PrintJobHandle) -> PrintJobStatus;
+}
+// ContinuumKit's system print sheet calls this; apps call ContinuumKit,
+// never PrintService directly — keeps printing gateable by the
+// capability broker (../../phase-1-shell-compositor/app-runtime/src/capability-broker/)
+// like camera/microphone/filesystem access.
+```
+
+## Driver model
+IPP Everywhere covers most modern printers without a per-model driver.
+Legacy/non-IPP printers are explicitly out of Tier-1 scope for v1,
+mirroring the hardware-enablement tiering philosophy — CUPS' own driver
+ecosystem remains available as a Tier-2-equivalent best-effort fallback.
 
 ## Status
-Not started — starts Phase 1, low priority relative to compositor/shell
-core work; must land before Phase 3 public alpha for the OS to be usable
-as a daily driver.
+Interface designed; capability-broker integration point identified. No
+CUPS integration work done — CUPS isn't yet in any build-system image
+manifest (`../../phase-0-foundation/build-system/manifests/`), added as
+a Phase 1 image-layer item alongside audio (Session 16).
