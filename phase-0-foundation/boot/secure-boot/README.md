@@ -1,28 +1,26 @@
-# Secure Boot Chain
+# Key material policy
 
-Implements step 1–2 of `../../../docs/architecture/02-boot-install-update.md`'s
-boot chain: UEFI Secure Boot verifies the Continuum bootloader signature;
-the bootloader verifies and loads the kernel+initramfs via dm-verity
-(see `../dm-verity/`).
+No private signing keys are ever committed to this repository. This
+directory documents the key hierarchy and rotation process only.
 
-## Components
+## Hierarchy
+1. **Platform Key (PK)** — root of trust, HSM-held, used only to enroll
+   the KEK. Rotation: only on suspected compromise (highest-severity
+   incident runbook).
+2. **Key Exchange Key (KEK)** — HSM-held, authorizes updates to the
+   signature database. Rotation: annual, or on suspected compromise.
+3. **Signature Database key (db)** — signs the Continuum bootloader and
+   kernel. This is the key used by `../sign-bootloader.sh` in the build
+   pipeline. Rotation: per release train or on compromise; old db keys
+   remain valid for verifying already-shipped images until their
+   supported-lifetime end.
 
-- `keys/` — key-generation and rotation runbook (no private key material
-  ever committed to this repo; production keys live in an HSM per
-  `../../../docs/architecture/07-security-permission-model.md`'s
-  supply-chain-security requirement).
-- `sign-bootloader.sh` — skeleton signing script (build-pipeline
-  integration point, not yet wired to a real HSM).
-- `enroll-keys.md` — process for enrolling Continuum's Secure Boot
-  signing key (or shim-style chain) on Tier-1 reference hardware and, on
-  the OEM path, at the factory.
+## Compromise runbook (stub)
+1. Revoke the compromised key via a signed `dbx` (forbidden signatures
+   database) update, pushed through the normal A/B update channel.
+2. Re-sign and re-release all affected images under a new db key.
+3. Post-incident: rotate the KEK if the db key compromise suggests KEK
+   exposure.
 
-## Design notes
-
-- Bootloader candidate: `systemd-boot` or GRUB, both Continuum-signed
-  (per source plan Section 4.1). Final pick tracked alongside ADR 0002
-  (init system) since `systemd-boot` vs GRUB interacts with the
-  systemd-vs-custom-init decision.
-- A tampered/unsigned bootloader or kernel must **fail closed** — refuse
-  to boot rather than warn-and-continue — this is validated by
-  `../../tests/hil/test_secure_boot_tamper_detection.md`.
+Full runbook detail is a Phase 0 security-review deliverable, not yet
+written — this stub defines the structure it must follow.
