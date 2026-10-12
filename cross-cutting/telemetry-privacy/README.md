@@ -67,3 +67,12 @@ This is what the >=98% first-attempt pairing KPI is computed from.
 
 Status: schema only; no daemon emits it yet. The published data-handling
 policy document is still open and must land before Phase 3 public alpha.
+
+## Additions for Phase 4 (Session 49)
+New `operation` values in `continuity_operation`: `notification_mirror`,
+`call_audio_route`, `camera_stream`, `scan_to_desktop`. New coarse
+`failure_reason` values: `permission_revoked`, `camera_busy`,
+`hfp_unavailable`, `rate_limited`. Same rules as before: opt-in, no
+content of any kind (no notification text, app names, caller numbers,
+message text, frames), no per-device identifier. The `feature` field
+records which feature, never which app or contact.
