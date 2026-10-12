@@ -8,3 +8,11 @@
    (`../../continuumd/README.md`'s session-loss behavior).
 
 Not runnable — pending implementations.
+
+## Expanded chain (Session 28)
+Exercises discovery -> `pairing.proto` handshake -> D-Bus `DeviceConnected`
+-> `DbusStatusSource` in Continuum Center.
+1. Pair an emulated Companion with `continuumd` using the real pairing messages.
+2. Assert `DeviceConnected` fires within N ms of `ConfirmPairingResponse{confirmed: true}`.
+3. Assert the UI shows "Connected" via the signal, with a call-count bound on `GetPairedDevices()` proving it is push-based.
+4. Kill the Companion; assert Connected -> Degraded -> Lost, and that the UI shows "Disconnected" only after Lost, not on Degraded.
