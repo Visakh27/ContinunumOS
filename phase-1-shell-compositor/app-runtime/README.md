@@ -60,3 +60,12 @@ pub trait Accessible {
 
 ## Status
 Interface-level design for all three submodules. No implementation.
+
+## Continuity capability grants (Session 36)
+Concrete grants for the Phase 3 features. Granting one never implies another.
+
+| Capability | Gates | Default |
+|---|---|---|
+| `ContinuityDbusSurface(Clipboard)` | App may read or write via `continuum-clipboardd`'s API (apps normally use the ordinary clipboard and need nothing) | Not granted |
+| `ContinuityHandoff` | App may advertise activities via the Handoff API | Not granted; prompt on first use |
+| `ContinuityDbusSurface(Drop)` | App may start a transfer programmatically. The Share sheet is a system component and does not need it | Not granted |
