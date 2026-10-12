@@ -31,3 +31,11 @@ phase-4-phone-notifications-camera/
 ├── continuum-camerad/
 └── tests/{unit,integration,protocol}/
 ```
+
+## Exit review (Session 51)
+
+See `../docs/issues/phase-4-open-items.md`. Not exited (scaffold-only
+scope). Notable: calls depend on an unverified Bluetooth hands-free
+assumption (P4-1, ADR 0007); messaging is notification-based (P4-2); the
+camera is a PipeWire node first (ADR 0006, P4-3). Public-beta gates are in
+`beta-readiness-checklist.md`.

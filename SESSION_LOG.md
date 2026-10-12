@@ -95,16 +95,18 @@ consciously deferred rather than started under this pass's time budget.
 
 | # | Day | Focus | Deliverable | Status |
 |---|---|---|---|---|
-| 42 | Tue | `continuum-phoned`: notifications | Mirroring, filtering, dedup, dismiss-sync, action invocation, `phoned.proto` | 🔲 |
-| 43 | Wed | `continuum-phoned`: messaging and calls | SMS/RCS via notification reply, call state/control, ADR 0007 (call audio over Bluetooth HFP), audio-stack routing | 🔲 |
-| 44 | Thu | `continuum-camerad` | ADR 0006 (virtual camera approach), `camera.proto`, streaming, contention, privacy indicator, scan-to-desktop | 🔲 |
-| 45 | Fri | Phone app + Android Companion modules | Built-in Phone app design; Kotlin notification, messaging, call and camera modules | 🔲 |
-| 46 | Mon | Capability grants + privacy/security review | Capability entries, hardening profile for phoned and camerad, notification-content threat model | 🔲 |
-| 47 | Tue | Tier-2 hardware enablement | Tier-2 sample plan and support matrix; kernel config correction for the virtual camera | 🔲 |
-| 48 | Wed | Tests | Unit, protocol, integration, HIL skeletons | 🔲 |
-| 49 | Thu | Public beta readiness | Beta checklist, release channel, feedback path, known-issues process, telemetry additions | 🔲 |
-| 50 | Fri | Phase 4 test plan finalize | `docs/testing/phase-4-test-plan.md` skeleton index | 🔲 |
-| 51 | Mon | Phase 4 exit review | `docs/issues/phase-4-open-items.md`; exit-review note in phase README | 🔲 |
+| 42 | Tue | `continuum-phoned`: notifications | Mirroring, filtering, dedup, dismiss-sync, action invocation, `phoned.proto` | ✅ |
+| 43 | Wed | `continuum-phoned`: messaging and calls | SMS/RCS via notification reply, call state/control, ADR 0007 (call audio over Bluetooth HFP), audio-stack routing | ✅ |
+| 44 | Thu | `continuum-camerad` | ADR 0006 (virtual camera approach), `camera.proto`, streaming, contention, privacy indicator, scan-to-desktop | ✅ |
+| 45 | Fri | Phone app + Android Companion modules | Built-in Phone app design; Kotlin notification, messaging, call and camera modules | ✅ |
+| 46 | Mon | Capability grants + privacy/security review | Capability entries, hardening profile for phoned and camerad, notification-content threat model | ✅ |
+| 47 | Tue | Tier-2 hardware enablement | Tier-2 sample plan and support matrix; kernel config correction for the virtual camera | ✅ |
+| 48 | Wed | Tests | Unit, protocol, integration, HIL skeletons | ✅ |
+| 49 | Thu | Public beta readiness | Beta checklist, release channel, feedback path, known-issues process, telemetry additions | ✅ |
+| 50 | Fri | Phase 4 test plan finalize | `docs/testing/phase-4-test-plan.md` skeleton index | ✅ |
+| 51 | Mon | Phase 4 exit review | `docs/issues/phase-4-open-items.md`; exit-review note in phase README | ✅ |
+
+**Phase 4 exit status:** not exited (scaffold-only). See `docs/issues/phase-4-open-items.md`; P4-1 (Bluetooth hands-free assumption for calls) is the main risk, and P4-2/P4-3 change scope vs. the original plan.
 
 ## Phase 5 — Universal Control, Hotspot, Windows Compat
 🔲 Not started. Folder scaffold in place.
