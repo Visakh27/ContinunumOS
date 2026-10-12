@@ -72,3 +72,12 @@ each feature daemon decides its own in-flight behavior: resume
 (`continuum-dropd`), nothing to resume (`continuum-clipboardd`), or no
 silent resume (`continuum-controld`, for security reasons). Each
 daemon's `tests/protocol/` plan carries the concrete test.
+
+## Virtual camera note (added Session 44)
+The table above says `continuum-camerad` exposes the phone camera as a
+V4L2 device. ADR 0006 changes this to a PipeWire virtual camera node
+(through the camera portal) as the primary path, with a V4L2 loopback
+compatibility device optional and off by default. See that ADR for why.
+Also, bulk data paths are opened by `continuumd`
+(`phase-2-continuumd-pairing/continuumd/src/data_path/`), not by the feature
+daemons.

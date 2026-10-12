@@ -1,0 +1,66 @@
+// Continuum OS — Camera protocol (continuum-camerad <-> Companion)
+// Control messages ride continuumd's session. Encoded video frames travel on
+// the data path negotiated by continuumd (see continuumd/src/data_path/).
+// STATUS: schema only.
+syntax = "proto3";
+package os.continuum.camera.v1;
+
+enum Facing { FACING_UNSPECIFIED = 0; FRONT = 1; BACK = 2; EXTERNAL = 3; }
+enum Codec  { CODEC_UNSPECIFIED = 0; H264 = 1; }
+
+message CameraMode {
+  uint32 width = 1;
+  uint32 height = 2;
+  uint32 fps = 3;
+}
+
+message CameraInfo {
+  string camera_id = 1;
+  Facing facing = 2;
+  repeated CameraMode modes = 3;
+}
+
+message CameraCapabilities { repeated CameraInfo cameras = 1; repeated Codec codecs = 2; }
+
+// Desktop -> phone. Must originate from a user action on the desktop.
+message StartCameraStream {
+  string stream_id = 1;
+  string camera_id = 2;
+  CameraMode mode = 3;
+  Codec codec = 4;
+  uint32 bitrate_kbps = 5;
+  string requesting_app = 6;      // shown on the phone notification
+}
+
+message StartCameraStreamResponse {
+  string stream_id = 1;
+  bool accepted = 2;
+  string reject_reason = 3;       // "camera_busy", "permission_denied", "feature_disabled", "unsupported_mode"
+}
+
+enum StreamStateKind {
+  STREAM_STATE_UNSPECIFIED = 0;
+  STREAMING = 1;
+  PAUSED_CAMERA_BUSY = 2;         // another app took the camera on the phone
+  ENDED = 3;
+}
+
+message CameraStreamState {
+  string stream_id = 1;
+  StreamStateKind state = 2;
+  string reason = 3;              // for ENDED: "stopped_by_user", "session_lost", "camera_error", "timeout"
+}
+
+message StopCameraStream { string stream_id = 1; }
+
+// Scan to desktop: the phone captures a still and delivers it via continuum-dropd.
+message ScanRequest {
+  string scan_id = 1;
+  bool document_mode = 2;         // edge detection / perspective correction on the phone
+}
+
+message ScanComplete {
+  string scan_id = 1;
+  string transfer_id = 2;         // handed to continuum-dropd
+  bool cancelled = 3;
+}

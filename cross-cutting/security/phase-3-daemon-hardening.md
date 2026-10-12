@@ -23,7 +23,7 @@ open item.
 |---|---|---|---|---|---|
 | `continuum-clipboardd` | Clipboard read/write via compositor | None | Own runtime dir only | A paired device (or one that compromised the session) overwriting the clipboard to hijack a paste, e.g. swapping a crypto address; leaking password-manager content | Sensitive-content rule; per-feature toggle; size caps; visible indicator on remote write; no logging of content |
 | `continuum-handoffd` | None beyond D-Bus | None | Own runtime dir only | Malicious activity payload or URL; spoofed activity title; payload used to attack the app that resumes | Opaque capped payload; never parsed by the OS; resume goes to the app's own handler, not a shell; web fallback URL restricted to http/https and shown to the user |
-| `continuum-dropd` | Open and close the negotiated data path | Data path only, per transfer | Quarantine dir (quota, TTL) and user folder (write after verification only) | Malware delivery; path traversal via filename; disk-fill by abandoned transfers; resuming under a revoked pairing; scanner bypass | Quarantine-first; filename sanitization; SHA-256 verify; scan; quota and TTL; trust-anchor epoch check on resume |
+| `continuum-dropd` | Receives a connected data-path handle from `continuumd` (no socket creation) | None of its own | Quarantine dir (quota, TTL) and user folder (write after verification only) | Malware delivery; path traversal via filename; disk-fill by abandoned transfers; resuming under a revoked pairing; scanner bypass | Quarantine-first; filename sanitization; SHA-256 verify; scan; quota and TTL; trust-anchor epoch check on resume |
 
 ## Cross-daemon isolation requirement
 A compromised `continuum-clipboardd` must not be able to reach
@@ -40,3 +40,5 @@ requirement now so Phase 3 daemons are written to it.
 ## Status
 Design-time threat model and profile. Independent implementation review
 is still required before alpha.
+
+**Update (Session 44):** `continuum-dropd` no longer opens its own data path; `continuumd`'s `data_path` service does, which keeps network access in one daemon.
