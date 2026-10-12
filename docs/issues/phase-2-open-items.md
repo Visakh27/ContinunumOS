@@ -2,7 +2,7 @@
 
 | # | Title | Detail | Status | Target |
 |---|---|---|---|---|
-| P2-1 | Phase READMEs on `develop` cut down to test-suite stubs | Commit `aa2798e` ("Refactor README files") left 10 phase/component READMEs (phases 0-6, `build-system`, `ab-update`) as short stubs, e.g. `phase-2-continuumd-pairing/README.md` is 2 lines. Scope, entry/exit criteria and structure sections are gone. This review had no Phase 2 exit criteria to check against and used the original from `82e2ebf`. | Open, needs owner decision | Before the next phase |
+| P2-1 | Phase READMEs on `develop` cut down to test-suite stubs | Commit `aa2798e` shortened 10 READMEs. Restored from the original versions on branch `phase2` at the owner's request. | Closed (pending PR merge) | n/a |
 | P2-2 | No D-Bus client library or protobuf toolchain in any manifest | `DbusStatusSource` and `pairing.proto` codegen (Rust and Kotlin) need build-system support. | Open | Build-system implementation session |
 | P2-3 | Emulated pairing harness does not exist | All protocol and integration tests depend on it. | Open | Before any Phase 2 test can run |
 | P2-4 | Android QR/numeric confirmation UI undesigned | Protocol is specified; the Compose screen is not. | Open | Android implementation session |
