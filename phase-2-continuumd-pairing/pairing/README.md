@@ -1,12 +1,20 @@
 # Pairing Protocol
 
-Mutual Ed25519 key exchange plus rotating QR/numeric-comparison
-confirmation; trust anchors in a TPM-backed keystore
-(`../../docs/architecture/07-security-permission-model.md`).
+Wire schema: `pairing.proto`. Security requirements it implements
+(`../../docs/architecture/07-security-permission-model.md`): mutual
+Ed25519 key exchange, rotating QR/numeric-comparison confirmation,
+TPM-backed trust anchors.
 
-## Protocol schema (planned)
-`pairing.proto` (to be added) — request/response messages for:
-`InitiatePairing`, `ConfirmPairing` (QR or numeric path), `RotateTrustAnchor`,
-`RevokePairing`.
+## Flow
+1. `InitiatePairing` <-> `InitiatePairingResponse`: ephemeral key
+   exchange and confirmation-method negotiation.
+2. Out-of-band confirmation (QR scan or numeric compare). Deliberately
+   NOT carried over this protocol: an out-of-band channel is what makes
+   MITM detection meaningful.
+3. `ConfirmPairing` <-> `ConfirmPairingResponse`: proves both sides saw
+   the same code; issues the persisted `TrustAnchor`.
+4. Later: `RotateTrustAnchor` and `RevokePairing` (also used by
+   recovery mode's "wipe + re-pair").
 
-Skeleton only.
+## Status
+Schema complete. No implementation.
