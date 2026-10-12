@@ -23,7 +23,7 @@ pub struct Notification {
 
 pub enum NotificationSource {
     NativeApp(AppId),                    // Continuum-native app via ContinuumKit
-    Mirrored { android_package: String }, // continuum-phoned, Phase 4 — added as a
+    Mirrored { android_package: String, remote_key: String }, // continuum-phoned, Phase 4 — added as a
                                           // variant now so Phase 4 doesn't modify
                                           // this enum's existing native-app path
 }
@@ -65,3 +65,5 @@ system call.
 ## Status
 Interface-level design. No implementation, no UI (the panel/tray
 rendering of notifications) built yet.
+
+**Update (Session 42):** `Mirrored` gained `remote_key` so a desktop dismissal can be mapped back to the phone's notification key (`continuum-phoned`). Additive; the native-app path is unchanged.
