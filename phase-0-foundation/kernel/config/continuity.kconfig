@@ -13,4 +13,11 @@ CONFIG_CFG80211_WEXT=y
 # userspace; kernel-side is cfg80211 P2P support, enabled above.
 CONFIG_VIDEO_V4L2=y
 CONFIG_V4L_PLATFORM_DRIVERS=y
-CONFIG_VIDEO_V4L2LOOPBACK=m
+# Removed Session 47: CONFIG_VIDEO_V4L2LOOPBACK was listed here but, to the
+# best of our knowledge, v4l2loopback is an out-of-tree module with no
+# mainline Kconfig symbol (verify against the pinned LTS tree). With
+# CONFIG_MODULE_SIG_FORCE=y it would also have to be built and signed in the
+# image. See docs/adr/0006-virtual-camera-approach.md: the primary phone
+# camera path is a PipeWire virtual camera node and needs no extra module.
+# Classic Bluetooth (BR/EDR, including SCO audio) is required for call audio
+# over HFP; see docs/adr/0007-call-audio-over-bluetooth-hfp.md.

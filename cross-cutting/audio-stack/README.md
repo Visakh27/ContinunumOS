@@ -46,3 +46,24 @@ PipeWire integration code written yet — that's a build-system dependency
 Phase 0 minimal-image manifest (intentionally — Phase 0's manifest is
 deliberately minimal, audio is a Phase 1 image-layer addition per the
 "superset, never a rewrite" principle).
+
+## Call routing (Session 43, per ADR 0007)
+
+Call audio arrives as a Bluetooth hands-free audio device. The audio
+service applies `RoutingPriority::ActiveCall` like this:
+1. **Ringing:** play the ring through the notification center's sound; do
+   not change audio routing yet.
+2. **Active:** when `CallState` is `ACTIVE` and the HFP device is
+   connected, switch default output and input to it. Remember the
+   previous devices.
+3. **Manual change during a call:** if the user picks another device in
+   the menu bar, that choice (`UserSelected`) wins for the rest of the
+   call and is not overridden.
+4. **Ended:** restore the remembered devices, unless the user changed them
+   during the call.
+5. **Speakerphone echo:** use PipeWire's echo-cancel processing when the
+   call runs through desktop speakers and microphone.
+6. **No HFP connection:** do not pretend the call is on the desktop. Show
+   the call as phone-only and offer to connect Bluetooth.
+
+Captioning of call audio (accessibility) would hook here; not designed yet.

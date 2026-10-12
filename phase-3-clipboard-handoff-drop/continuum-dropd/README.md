@@ -38,9 +38,11 @@ and every app's Share action, with scan-on-receive. Wire schema:
 5. **Limits.** Initial maximum file size and a cap on concurrent
    transfers, both configurable; the partial-file quarantine has a disk
    quota and a time-to-live so abandoned transfers don't fill storage.
-6. **No network socket of its own beyond the negotiated data path.**
-   Control traffic goes through `continuumd`; the data path is opened
-   per transfer and closed at completion.
+6. **No network socket of its own.** Control traffic goes through
+   `continuumd`, and the bulk data path is opened by `continuumd`'s
+   `data_path` service and handed over as an already-connected handle
+   (`../../phase-2-continuumd-pairing/continuumd/src/data_path/README.md`,
+   changed Session 44; this daemon previously opened it itself).
 7. **Hotspot fallback.** Not used for drop. `continuum-hotspotd`
    (Phase 5) covers connectivity, not transfer routing.
 
