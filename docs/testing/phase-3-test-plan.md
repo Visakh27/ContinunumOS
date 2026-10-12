@@ -20,3 +20,23 @@
   functional passing.
 
 Skeleton: `phase-3-clipboard-handoff-drop/tests/`.
+
+## Skeleton index (Session 40)
+
+| File (under `phase-3-clipboard-handoff-drop/tests/`) | Level | Covers |
+|---|---|---|
+| `unit/clipboardd_test.rs` | unit | Loop guard, ordering, size limit, sensitive content, session loss |
+| `unit/handoffd_test.rs` | unit | Replace/expire/clear, payload cap and opacity, capability gate, fallback |
+| `unit/dropd_test.rs` | unit | Filename sanitization, quarantine, digest, scan policy, resume, quotas |
+| `protocol/session_loss_per_daemon_test.md` | protocol | Session-loss behavior for all three daemons (exit criterion) |
+| `protocol/fuzz_inputs_test.md` | protocol | Malformed phone input against the three schemas |
+| `protocol/dropd_malicious_payload_test.md` | protocol | EICAR, oversize, resume, no resume past a rotated trust anchor |
+| `integration/clipboard_roundtrip_test.md` | integration | Round trip within the 500 ms budget, type negotiation |
+| `integration/handoff_dock_resume_test.md` | integration | Dock affordance lifecycle |
+| `integration/drop_end_to_end_test.md` | integration | Quarantine-first delivery, drag-and-drop, resume |
+| `hil/clipboard_latency_kpi_test.md` | HIL | Median <= 500 ms KPI per device |
+| `hil/drop_throughput_kpi_test.md` | HIL | >= 80% of raw link speed KPI per device pair |
+
+Also: `cross-cutting/security/phase-3-daemon-hardening.md` (design-time
+threat model). All entries are skeletons. Integration, protocol and HIL
+entries are blocked on the pairing harness and Tier-1 hardware (P0-1).

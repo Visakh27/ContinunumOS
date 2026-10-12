@@ -78,16 +78,18 @@ consciously deferred rather than started under this pass's time budget.
 
 | # | Day | Focus | Deliverable | Status |
 |---|---|---|---|---|
-| 32 | Tue | `continuum-clipboardd` | OS-level hook design, content-type negotiation, size limits, `clipboard.proto` | 🔲 |
-| 33 | Wed | `continuum-handoffd` + ContinuumKit Handoff API | State-tracking design, third-party opt-in API, `handoff.proto`, Dock `HandoffSource` real implementation | 🔲 |
-| 34 | Thu | `continuum-dropd` | Chunked/resumable transfer, AV-scan-on-receive pipeline, `drop.proto`, Share/Files integration | 🔲 |
-| 35 | Fri | Android Companion: clipboard, handoff, drop modules | Kotlin-side mirrors of Sessions 32-34 | 🔲 |
-| 36 | Mon | Capability broker + Files app integration | Continuity capability grants for the three features; Files "Nearby Device" entry; Share sheet entry | 🔲 |
-| 37 | Tue | Sandbox security review (alpha gate) | Threat model + per-daemon hardening profile for all three daemons | 🔲 |
-| 38 | Wed | Tests | Unit, protocol (session-loss per daemon), integration, HIL (latency/throughput KPIs) skeletons | 🔲 |
-| 39 | Thu | Alpha prerequisites | Developer portal/API stability policy, data-handling policy (P2-7), `PairedPhone` backup transport (P2-6) | 🔲 |
-| 40 | Fri | Phase 3 test plan finalize | `docs/testing/phase-3-test-plan.md` skeleton index | 🔲 |
-| 41 | Mon | Phase 3 exit review | `docs/issues/phase-3-open-items.md`; exit-review note in phase README | 🔲 |
+| 32 | Tue | `continuum-clipboardd` | OS-level hook design, content-type negotiation, size limits, `clipboard.proto` | ✅ |
+| 33 | Wed | `continuum-handoffd` + ContinuumKit Handoff API | State-tracking design, third-party opt-in API, `handoff.proto`, Dock `HandoffSource` real implementation | ✅ |
+| 34 | Thu | `continuum-dropd` | Chunked/resumable transfer, AV-scan-on-receive pipeline, `drop.proto`, Share/Files integration | ✅ |
+| 35 | Fri | Android Companion: clipboard, handoff, drop modules | Kotlin-side mirrors of Sessions 32-34 | ✅ |
+| 36 | Mon | Capability broker + Files app integration | Continuity capability grants for the three features; Files "Nearby Device" entry; Share sheet entry | ✅ |
+| 37 | Tue | Sandbox security review (alpha gate) | Threat model + per-daemon hardening profile for all three daemons | ✅ |
+| 38 | Wed | Tests | Unit, protocol (session-loss per daemon), integration, HIL (latency/throughput KPIs) skeletons | ✅ |
+| 39 | Thu | Alpha prerequisites | Developer portal/API stability policy, data-handling policy (P2-7), `PairedPhone` backup transport (P2-6) | ✅ |
+| 40 | Fri | Phase 3 test plan finalize | `docs/testing/phase-3-test-plan.md` skeleton index | ✅ |
+| 41 | Mon | Phase 3 exit review | `docs/issues/phase-3-open-items.md`; exit-review note in phase README | ✅ |
+
+**Phase 3 exit status:** not exited (scaffold-only). See `docs/issues/phase-3-open-items.md`; P3-1 (Android clipboard restriction) is the main feasibility risk.
 
 ## Phase 4 — Phone, Notifications, Camera (Public Beta)
 🔲 Not started. Folder scaffold in place.
