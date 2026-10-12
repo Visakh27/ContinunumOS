@@ -24,3 +24,11 @@ module's restore; it does not reimplement it.
 
 Status: destination model only. No scheduling, encryption policy or
 restore flow yet.
+
+## PairedPhone transport (Session 39)
+Once `continuum-dropd` exists, the `PairedPhone` destination sends
+backup archives as ordinary drop transfers, so it inherits quarantine,
+digest verification and resume. Open points: backups must be encrypted
+before leaving the desktop (the phone is not trusted storage), and
+Android storage limits and background restrictions make large backups to
+a phone best-effort. Removes P2-6 as a blocker at design level.
