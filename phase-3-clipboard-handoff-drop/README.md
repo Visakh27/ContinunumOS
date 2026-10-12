@@ -38,3 +38,10 @@ phase-3-clipboard-handoff-drop/
 ├── continuum-dropd/
 └── tests/{unit,integration,protocol}/
 ```
+
+## Exit review (Session 41)
+
+See `../docs/issues/phase-3-open-items.md`. Not exited (scaffold-only
+scope). Design, protocol schemas, tests and a design-time hardening
+profile are complete; the largest risk found is Android's restriction on
+background clipboard reads (P3-1).

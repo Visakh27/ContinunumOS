@@ -1,0 +1,46 @@
+// Continuum OS — File drop protocol (continuum-dropd <-> Companion)
+// Control messages ride continuumd's session; bulk data uses a
+// negotiated high-bandwidth path (Wi-Fi Direct / Wi-Fi Aware).
+// STATUS: schema only.
+syntax = "proto3";
+package os.continuum.drop.v1;
+
+message TransferOffer {
+  string transfer_id = 1;
+  string sender_device_id = 2;
+  string file_name = 3;          // sanitized by the receiver; never used as a path
+  uint64 size_bytes = 4;
+  string mime_type = 5;
+  bytes sha256 = 6;              // whole-file digest, verified after receive
+  uint32 chunk_size = 7;
+}
+
+message TransferOfferResponse {
+  string transfer_id = 1;
+  bool accepted = 2;
+  string reject_reason = 3;      // "too_large", "feature_disabled", "user_declined"
+  uint64 resume_from_offset = 4; // nonzero when resuming a partial transfer
+}
+
+message ChunkAck {
+  string transfer_id = 1;
+  uint64 highest_contiguous_offset = 2;  // enables resume after session loss
+}
+
+message TransferComplete {
+  string transfer_id = 1;
+  bool digest_verified = 2;
+  ScanVerdict scan_verdict = 3;
+}
+
+enum ScanVerdict {
+  SCAN_VERDICT_UNSPECIFIED = 0;
+  CLEAN = 1;
+  MALICIOUS = 2;
+  SCAN_UNAVAILABLE = 3;          // policy decides whether this blocks delivery
+}
+
+message TransferAbort {
+  string transfer_id = 1;
+  string reason = 2;
+}
