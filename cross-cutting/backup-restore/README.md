@@ -1,22 +1,26 @@
 # Backup & Restore
 
-No data-loss story exists in the source plan
-(`../../docs/architecture/09-additions-and-gaps.md`). Needed before any
-public alpha (Phase 3) — a continuity-focused OS that loses user data on
-a failed update is a non-starter for early adopters.
+See `../../docs/architecture/09-additions-and-gaps.md`. Needed before
+public alpha; Phase 2 introduces the first daemon (`continuumd`) able to
+use the phone as a destination.
 
-## Scope (initial)
-- User-data backup (distinct from the OS-image A/B mechanism, which
-  only protects the OS partition, not `/home`-equivalent user data).
-- Backup destinations: local external drive, and — leveraging the
-  continuity subsystem already being built — the paired Android phone's
-  storage as a fallback destination via `continuum-dropd` (Phase 3),
-  once that daemon exists.
-- Restore path integrated with `../recovery-mode/`'s reinstall flow
-  ("reinstall OS, preserving user data" implies a working backup/restore
-  mechanism underneath it).
+## Destinations
+```rust
+pub enum BackupDestination {
+    LocalExternalDrive { mount_path: PathBuf },
+    PairedPhone { device_id: DeviceId },
+    // PairedPhone has no working transport until continuum-dropd (Phase 3).
+    // Modeled now so backup config needs no breaking change later.
+}
+```
 
-## Status
-Design scope only. Targeted to land before Phase 2 exit
-(`../../ROADMAP.md`), since Phase 2 introduces the first daemon
-(`continuumd`) capable of using the phone as a backup destination.
+## Scope
+User-data partition only. The OS partition is never a backup target
+(ADR 0003): it is reprovisioned via A/B or a fresh OEM image.
+
+## Restore
+Recovery mode's "reinstall OS, preserving user data" action invokes this
+module's restore; it does not reimplement it.
+
+Status: destination model only. No scheduling, encryption policy or
+restore flow yet.
