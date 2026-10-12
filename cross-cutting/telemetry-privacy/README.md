@@ -44,3 +44,26 @@ usage/diagnostics telemetry policy (covering later phases' pairing
 success, clipboard latency, etc. KPIs) is a Phase 2+ follow-up, staged
 to land before the Phase 3 public alpha per
 `../../docs/testing/phase-3-test-plan.md`.
+
+## Schema: continuity operational metadata (Session 29)
+
+Same opt-in, no-content, no-device-serial principles as above, for the
+Phase 2+ KPIs (pairing success rate, later clipboard latency):
+```
+{
+  "event": "continuity_operation",
+  "operation": "pairing_attempt" | "clipboard_sync" | "file_transfer",
+  "outcome": "success" | "failure" | "timeout",
+  "duration_ms": <int>,
+  "feature": "<ContinuityFeature>",
+  "failure_reason": "version_mismatch" | "timeout" | "declined" | "other",
+  "os_version": "<semver>", "companion_version": "<semver>",
+  "device_class": "<tier1-device-id>", "timestamp": "<iso8601>"
+}
+```
+`failure_reason` is a coarse enum, never free text, so it cannot leak
+content. No clipboard, message or file content, no unique device ID.
+This is what the >=98% first-attempt pairing KPI is computed from.
+
+Status: schema only; no daemon emits it yet. The published data-handling
+policy document is still open and must land before Phase 3 public alpha.

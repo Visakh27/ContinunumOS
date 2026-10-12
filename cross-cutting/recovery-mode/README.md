@@ -21,6 +21,9 @@ updates*; this covers user-initiated recovery).
   rollback, wipe + re-pair continuity trust anchors, export diagnostic
   logs to external USB.
 
+**Dependency (Session 28):** "preserve user data" only holds once
+`../backup-restore/` has a working restore. Recovery mode invokes it.
+
 ## Structure (planned)
 ```
 recovery-mode/

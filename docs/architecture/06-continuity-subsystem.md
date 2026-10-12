@@ -61,13 +61,14 @@ Skeleton: `../../android-companion/`.
    daemon implementation, so the Android Companion can be built against
    a stable contract rather than reverse-engineering daemon behavior.
 
-## Gap identified during scaffolding **[added]**
+## Session-loss / resume policy **[added, resolved Session 22]**
 
-The source plan doesn't specify what happens when `continuumd`'s
-persistent session drops mid-transfer (e.g. a `continuum-dropd` file
-transfer, or a `continuum-controld` input-injection session, while the
-phone walks out of Wi-Fi range). Each feature daemon's design doc (see
-its phase folder) must define a session-loss behavior: resume, fail
-cleanly with user notification, or hand off to `continuum-hotspotd`'s
-tethering fallback. This is called out explicitly in each daemon's
-`tests/protocol/` plan as a required test case.
+The source plan doesn't say what happens when `continuumd`'s session
+drops mid-operation. Resolved in
+`../../phase-2-continuumd-pairing/continuumd/src/session/README.md`:
+`continuumd` exposes a uniform Connected -> Degraded -> Lost ->
+Disconnected signal with a bounded silent-reconnect grace window, and
+each feature daemon decides its own in-flight behavior: resume
+(`continuum-dropd`), nothing to resume (`continuum-clipboardd`), or no
+silent resume (`continuum-controld`, for security reasons). Each
+daemon's `tests/protocol/` plan carries the concrete test.

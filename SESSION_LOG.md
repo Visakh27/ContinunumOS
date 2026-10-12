@@ -61,19 +61,18 @@ consciously deferred rather than started under this pass's time budget.
 
 | # | Day | Focus | Deliverable | Status |
 |---|---|---|---|---|
-| 22 | Tue | `continuumd` discovery + session modules | `continuumd/src/{discovery,session}/` design: BLE/mDNS state machine, QUIC session lifecycle incl. session-loss/resume (the gap flagged in `docs/architecture/06-continuity-subsystem.md`) | 🔲 |
-| 23 | Wed | Pairing protocol schema | `pairing/pairing.proto` — the actual protobuf schema (currently just referenced, not written); Ed25519 handshake + QR/numeric flows | 🔲 |
-| 24 | Thu | `continuumd` D-Bus API surface | `continuumd/src/dbus_api/` — the real interface Phase 3+ feature daemons and `continuum-center-ui/` will consume; retire the Session 13 `MockStatusSource`/`ContinuityStatusSource` mismatch by defining the real API it should be swapped for | 🔲 |
-| 25 | Fri | Continuum Center real data source | `continuum-center-ui/` — swap `MockStatusSource` for a `DbusStatusSource` design against Session 24's API | 🔲 |
-| 26 | Mon | Android Companion: discovery + pairing modules | `android-companion/.../discovery/`, `.../pairing/` — Kotlin-side mirror of Sessions 22–23, built against `companion-android-stub/` | 🔲 |
-| 27 | Tue | Protocol test suite | `tests/protocol/` — expand `pairing_handshake_test.md`, add session-loss/resume test cases | 🔲 |
-| 28 | Wed | Integration + backup/restore groundwork | `tests/integration/live_connected_status_test.md` expansion; `cross-cutting/backup-restore/` design (phone-as-backup-destination, flagged as a Phase 2 dependency in ROADMAP.md) | 🔲 |
-| 29 | Thu | Telemetry expansion | `cross-cutting/telemetry-privacy/` — broader usage/diagnostics schema beyond the Phase 0 boot-health beacon, per that doc's own "Phase 2+ follow-up" note | 🔲 |
-| 30 | Fri | Phase 2 test plan finalize | `docs/testing/phase-2-test-plan.md` skeleton index, mirroring Session 20's treatment | 🔲 |
-| 31 | Mon | Phase 2 exit review | Same treatment as Sessions 11/21 | 🔲 |
+| 22 | Tue | `continuumd` discovery + session modules | `continuumd/src/{discovery,session}/` design: BLE/mDNS state machine, QUIC session lifecycle incl. session-loss/resume (the gap flagged in `docs/architecture/06-continuity-subsystem.md`) | ✅ |
+| 23 | Wed | Pairing protocol schema | `pairing/pairing.proto` — the actual protobuf schema (currently just referenced, not written); Ed25519 handshake + QR/numeric flows | ✅ |
+| 24 | Thu | `continuumd` D-Bus API surface | `continuumd/src/dbus_api/` — the real interface Phase 3+ feature daemons and `continuum-center-ui/` will consume; retire the Session 13 `MockStatusSource`/`ContinuityStatusSource` mismatch by defining the real API it should be swapped for | ✅ |
+| 25 | Fri | Continuum Center real data source | `continuum-center-ui/` — swap `MockStatusSource` for a `DbusStatusSource` design against Session 24's API | ✅ |
+| 26 | Mon | Android Companion: discovery + pairing modules | `android-companion/.../discovery/`, `.../pairing/` — Kotlin-side mirror of Sessions 22–23, built against `companion-android-stub/` | ✅ |
+| 27 | Tue | Protocol test suite | `tests/protocol/` — expand `pairing_handshake_test.md`, add session-loss/resume test cases | ✅ |
+| 28 | Wed | Integration + backup/restore groundwork | `tests/integration/live_connected_status_test.md` expansion; `cross-cutting/backup-restore/` design (phone-as-backup-destination, flagged as a Phase 2 dependency in ROADMAP.md) | ✅ |
+| 29 | Thu | Telemetry expansion | `cross-cutting/telemetry-privacy/` — broader usage/diagnostics schema beyond the Phase 0 boot-health beacon, per that doc's own "Phase 2+ follow-up" note | ✅ |
+| 30 | Fri | Phase 2 test plan finalize | `docs/testing/phase-2-test-plan.md` skeleton index, mirroring Session 20's treatment | ✅ |
+| 31 | Mon | Phase 2 exit review | Same treatment as Sessions 11/21 | ✅ |
 
-## Phase 3 — Clipboard, Handoff, Drop (Public Alpha)
-🔲 Not started. Folder scaffold in place.
+**Phase 2 exit status:** not exited (scaffold-only). See `docs/issues/phase-2-open-items.md`; P2-1 (shortened phase READMEs on `develop`) needs a decision.
 
 ## Phase 3 — Clipboard, Handoff, Drop (Public Alpha)
 🔲 Not started. Folder scaffold in place.

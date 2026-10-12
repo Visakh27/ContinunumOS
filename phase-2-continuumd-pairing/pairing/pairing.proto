@@ -1,0 +1,64 @@
+// Continuum OS — Pairing Protocol (continuumd <-> Continuum Companion)
+// STATUS: schema only — not yet compiled into any daemon.
+syntax = "proto3";
+package os.continuum.pairing.v1;
+
+// Version travels in every message so mismatches are reportable at the
+// application layer, not just a transport failure.
+message ProtocolVersion {
+  uint32 major = 1;
+  uint32 minor = 2;
+}
+
+enum ConfirmationMethod {
+  CONFIRMATION_METHOD_UNSPECIFIED = 0;
+  QR_CODE = 1;
+  NUMERIC_COMPARISON = 2;
+}
+
+message InitiatePairing {
+  ProtocolVersion version = 1;
+  bytes ephemeral_public_key = 2;   // Ed25519
+  string device_display_name = 3;
+  repeated ConfirmationMethod supported_confirmation = 4;
+}
+
+message InitiatePairingResponse {
+  ProtocolVersion version = 1;
+  bytes ephemeral_public_key = 2;
+  string device_display_name = 3;
+  ConfirmationMethod chosen_confirmation = 4;
+  bool accepted = 5;
+  string decline_reason = 6;        // set only if accepted == false
+}
+
+// After out-of-band confirmation (QR scan / numeric match)
+message ConfirmPairing {
+  bytes confirmation_proof = 1;     // HMAC over both ephemeral keys + confirmation code
+}
+
+message ConfirmPairingResponse {
+  bool confirmed = 1;
+  TrustAnchor trust_anchor = 2;     // set only if confirmed == true
+}
+
+message TrustAnchor {
+  string device_id = 1;
+  bytes long_term_public_key = 2;
+  uint64 created_at_unix = 3;
+  uint32 rotation_epoch = 4;
+}
+
+message RotateTrustAnchor {
+  string device_id = 1;
+  uint32 current_rotation_epoch = 2; // must match stored value; prevents replay
+}
+
+message RotateTrustAnchorResponse {
+  TrustAnchor new_trust_anchor = 1;
+}
+
+message RevokePairing {
+  string device_id = 1;
+  bytes revocation_signature = 2;   // signed with the long-term key
+}

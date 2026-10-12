@@ -21,7 +21,7 @@ in one place, with where each lives.
 | Legal / export compliance & licensing | Crypto export control, GPL/LGPL compliance obligations, OEM trademark terms | `07-security-permission-model.md` |
 | Supply chain & build security (SLSA provenance, reproducible builds, SBOM, HSM-held signing keys) | Verified boot protects the running system, not the build pipeline that produced it | `cross-cutting/security/`, `07-security-permission-model.md` |
 | Native OS notification model (independent of Android mirroring) | `continuum-phoned` mirrors Android notifications, but native-app notifications aren't specified | `04-desktop-shell-ux.md` |
-| Continuity session-loss / resume behavior | Undefined what happens when `continuumd`'s session drops mid-feature-operation | `06-continuity-subsystem.md` |
+| Continuity session-loss / resume behavior | Undefined what happens when `continuumd`'s session drops mid-feature-operation | **Resolved Session 22**, `06-continuity-subsystem.md` |
 
 None of these change the source plan's phase sequencing or core
 architecture decisions; they're additions that slot into the existing
