@@ -1,0 +1,38 @@
+// Continuum OS — Clipboard sync protocol (continuum-clipboardd <-> Companion)
+// Carried over continuumd's session; this daemon opens no sockets itself.
+// STATUS: schema only.
+syntax = "proto3";
+package os.continuum.clipboard.v1;
+
+enum ClipboardKind {
+  CLIPBOARD_KIND_UNSPECIFIED = 0;
+  TEXT = 1;
+  IMAGE = 2;
+  FILE_REFERENCE = 3;   // large content: hand off to continuum-dropd, never inline
+}
+
+message ClipboardEvent {
+  string event_id = 1;          // unique per copy; used for dedup and loop prevention
+  string origin_device_id = 2;  // device where the copy happened
+  uint64 lamport_clock = 3;     // ordering between near-simultaneous copies
+  ClipboardKind kind = 4;
+  string mime_type = 5;
+  oneof payload {
+    string text = 6;            // TEXT, up to the inline size limit
+    bytes image_data = 7;       // IMAGE, up to the inline size limit
+    FileReference file_ref = 8; // FILE_REFERENCE
+  }
+  bool sensitive = 9;           // set when the source app marked it concealed (password managers)
+}
+
+message FileReference {
+  string transfer_id = 1;       // handed to continuum-dropd
+  string file_name = 2;
+  uint64 size_bytes = 3;
+}
+
+message ClipboardAck {
+  string event_id = 1;
+  bool applied = 2;
+  string reject_reason = 3;     // e.g. "too_large", "feature_disabled", "unsupported_type"
+}

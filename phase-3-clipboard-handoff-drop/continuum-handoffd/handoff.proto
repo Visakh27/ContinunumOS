@@ -1,0 +1,31 @@
+// Continuum OS — Handoff protocol (continuum-handoffd <-> Companion)
+// STATUS: schema only.
+syntax = "proto3";
+package os.continuum.handoff.v1;
+
+// An app (opted in via ContinuumKit) advertises what the user is doing.
+message ActivityAdvertisement {
+  string activity_id = 1;       // stable per activity; updates replace the previous ad
+  string origin_device_id = 2;
+  string app_id = 3;            // the app's identity, not a path
+  string activity_type = 4;     // app-defined, e.g. "browse-tab", "edit-document"
+  string title = 5;             // shown in the Dock resume affordance
+  uint64 updated_at_unix = 6;
+  bytes continuation_payload = 7; // opaque to the OS; size-capped (see README)
+  string web_fallback_url = 8;  // used if the receiving device lacks the app
+}
+
+message ActivityWithdrawn {
+  string activity_id = 1;       // sent when the app closes the activity
+}
+
+message ResumeRequest {
+  string activity_id = 1;
+  string requesting_device_id = 2;
+}
+
+message ResumeResponse {
+  bool accepted = 1;
+  bytes continuation_payload = 2;
+  string reject_reason = 3;     // e.g. "activity_withdrawn", "app_not_installed"
+}
