@@ -28,8 +28,9 @@ by concern, merged at build time by the build system:
 - `config/base.kconfig` — minimum viable kernel (console, ext4, basic net)
 - `config/security.kconfig` — dm-verity, Secure Boot chain requirements,
   seccomp, module signing
-- `config/continuity.kconfig` — BLE, Wi-Fi Direct/Aware, V4L2 virtual
-  device support (`uvcvideo`/`v4l2loopback`-class options) needed by the
+- `config/continuity.kconfig` — BLE, Wi-Fi Direct/Aware, classic
+  Bluetooth and V4L2 camera support (the phone camera itself is a PipeWire
+  node, ADR 0006) needed by the
   continuity daemons from Phase 2 onward, enabled early so hardware
   bring-up isn't blocked later
 - `config/graphics.kconfig` — DRM/KMS, GPU driver options for the
