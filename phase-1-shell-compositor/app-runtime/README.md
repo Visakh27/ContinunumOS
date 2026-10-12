@@ -69,3 +69,11 @@ Concrete grants for the Phase 3 features. Granting one never implies another.
 | `ContinuityDbusSurface(Clipboard)` | App may read or write via `continuum-clipboardd`'s API (apps normally use the ordinary clipboard and need nothing) | Not granted |
 | `ContinuityHandoff` | App may advertise activities via the Handoff API | Not granted; prompt on first use |
 | `ContinuityDbusSurface(Drop)` | App may start a transfer programmatically. The Share sheet is a system component and does not need it | Not granted |
+
+## Phase 4 capability decisions (Session 46)
+| Item | Decision |
+|---|---|
+| Mirrored notification content | **No capability exists to read it.** Only the shell's notification center and the first-party Phone app can see it. Third-party apps get no API for this in Phase 4, deliberately: notifications carry one-time codes and private messages |
+| `Capability::Camera` | Also gates the phone camera. It appears in the camera portal as "Phone (device name)", beside local cameras, and each app needs its own grant |
+| `ContinuityDbusSurface(Phone)` | First-party Phone app only; not grantable to third parties in Phase 4 |
+| Starting a phone camera stream | Always needs a user gesture on the desktop, in addition to the app's camera grant |
